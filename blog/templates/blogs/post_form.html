@@ -1,0 +1,21 @@
+{% extends 'blogs/base.html' %}
+{% block content %}
+<div class="form-wrapper">
+    <h2>{{ heading }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% for field in form %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <ul class="errorlist">{% for error in field.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+            {% endif %}
+        {% endfor %}
+        <div class="actions">
+            <button class="btn primary" type="submit">{{ submit_label }}</button>
+            <a class="btn" href="{% url 'blogs:index' %}">返回</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

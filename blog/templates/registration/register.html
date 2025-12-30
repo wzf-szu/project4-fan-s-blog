@@ -1,0 +1,20 @@
+{% extends 'blogs/base.html' %}
+{% block content %}
+<div class="form-wrapper">
+    <h2>注册新用户</h2>
+    {% if form.errors %}
+        <ul class="errorlist">{% for field in form %}{% for error in field.errors %}<li>{{ error }}</li>{% endfor %}{% endfor %}</ul>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+        {% endfor %}
+        <div class="actions">
+            <button class="btn primary" type="submit">注册并登录</button>
+            <a class="btn" href="{% url 'login' %}">返回登录</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
